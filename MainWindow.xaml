@@ -14,7 +14,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <controls:MenuBar Grid.Row="0"/>
-            <controls:NoteGrid x:Name="NotesGrid" Grid.Row="1"/>
+            <controls:NoteGrid x:Name="MyNoteGrid" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Window}}" Height="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Window}}" Grid.Row="1"/>
         </Grid>
     </Grid>
 </Window>

@@ -66,5 +66,10 @@ namespace Note_Tote.Controls
             if(ReloadCallBack != null)
                 ReloadCallBack();
         }
+
+        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

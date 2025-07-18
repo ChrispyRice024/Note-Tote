@@ -5,9 +5,151 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Note_Tote.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="150" d:DesignWidth="150">
-    <Grid>
+             Height="200" Width="200"
+             d:DesignHeight="200" d:DesignWidth="200">
+    <Border Background="OldLace" BorderThickness="3" CornerRadius="8" BorderBrush="Black" Padding="4" Margin="4">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".5*"/>
+                <!--Controls-->
+                <RowDefinition/>
+                <!--Title-->
+                <RowDefinition/>
+                <!--Description-->
+                <RowDefinition/>
+                <!--Dates-->
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                x:Name="CellNum"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                
+                Panel.ZIndex="10"
+                Text="10"
+                FontSize="15"
+                />
+            <Button
+                Grid.Row="0"
+                x:Name="UpdateBtn"
+                Content="🖍️"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Panel.ZIndex="10"
+                FontSize="12"
+                BorderThickness="0"
+                Background="Transparent"
+                Click="UpdateBtn_Click"
+                />
+            <Button
+                Grid.Row="0"
+                x:Name="DeleteBtn"
+                Content="🗑️"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="0,0,20,0"
+                Panel.ZIndex="10"
+                FontSize="12"
+                Background="Transparent"
+                BorderThickness="0"
+                Click="DeleteBtn_Click"
+                />
+            <!--Second Row-->
+            <TextBlock
+                x:Name="NoteNameTxt"
+                Grid.Row="1"
+                Text="Note nemaa;lkjfgnva;sdlfnvga;"
+                FontSize="15"
+                TextWrapping="Wrap"
+                TextTrimming="CharacterEllipsis"
+                LineStackingStrategy="BlockLineHeight"
+                LineHeight="15"
+                Height="32"
+                />
+            <!--Third Row-->
+            <TextBlock
+                x:Name="NoteDescTxt"
+                Grid.Row="2"
+                FontSize="10"
+                Text=";alkgnva;vlknna;gboaer;gblnas;ghbnfd;ghblnjfe;gbns;fgnbs;egnjs;erna;lgvjnka;glna;g;alnvk;zlng;rlkjgnlzjknilgkfdnblksdhblshjbglksa"
+                TextWrapping="Wrap"
+                TextTrimming="CharacterEllipsis"
+                LineStackingStrategy="BlockLineHeight"
+                LineHeight="10"
+                Height="34"
+                />
+            <!--Fourth Row-->
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" BorderThickness=".75" BorderBrush="Black" Margin="0" Padding="0" CornerRadius="3">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label
+                            x:Name="StartDateLabel"
+                            VerticalAlignment="Top"
+                            FontSize="10"
+                            Grid.Row="0"
+                            Content="Start Date"
+                        />
+                        <TextBlock
+                            x:Name="StartDateTxt"
+                            Grid.Row="1"
+                            VerticalAlignment="Bottom"
+                            FontSize="10"
+                            Padding="3"
+                            Text="01/27/1994"
+                        />
+                    </Grid>
+
+                </Border>
+                <Border Grid.Column="1" BorderThickness=".75" BorderBrush="Black" CornerRadius="3">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label
+                            x:Name="DueDateLabel"
+                            VerticalAlignment="Top"
+                            FontSize="10"
+                            Grid.Row="0"
+                            Content="Due Date"
+                        />
+                        <TextBlock
+                            x:Name="DueDateTxt"
+                            VerticalAlignment="Bottom"
+                            Grid.Row="1"
+                            FontSize="10"
+                            Padding="3,1,3,1"
+                            Text="01/27/1994"
+                        />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+    
+    <!--<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+        </Grid>
         <TextBlock
+            Grid.Row="0"
             x:Name="CellNum"
             VerticalAlignment="Top"
             HorizontalAlignment="Left"
@@ -17,8 +159,21 @@
             FontSize="15"
             />
         <Button
+            Grid.Row="0"
+            x:Name="UpdateBtn"
+            Content="🖍️"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Right"
+            Margin="12,15,32,12"
+            Panel.ZIndex="10"
+            FontSize="12"
+            BorderThickness="0"
+            Background="Transparent"
+            />
+        <Button
+            Grid.Row="0"
             x:Name="DeleteBtn"
-            Content="🚮"
+            Content="🗑️"
             VerticalAlignment="Top"
             HorizontalAlignment="Right"
             Margin="12"
@@ -28,7 +183,7 @@
             BorderThickness="0"
             Click="DeleteBtn_Click"
             />
-        <Border Background="OldLace" BorderThickness="3" CornerRadius="8" BorderBrush="Black" Padding="4" Margin="4">
+        <Border Grid.RowSpan="2" Background="OldLace" BorderThickness="3" CornerRadius="8" BorderBrush="Black" Padding="4" Margin="4">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -109,5 +264,5 @@
                 </Grid>
             </Grid>
         </Border>
-    </Grid>
+    </Grid>-->
 </UserControl>

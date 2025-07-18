@@ -8,9 +8,14 @@
              d:DesignHeight="550" d:DesignWidth="400">
     <Grid>
         <Grid x:Name="UniformGridParent">
-            <UniformGrid x:Name="NotesUGrid">
-                <!--set size and column info in the . cs-->
-            </UniformGrid>
+            <ScrollViewer>
+                <UniformGrid x:Name="NotesUGrid"
+                             VerticalAlignment="Top"
+                             HorizontalAlignment="Stretch">
+                    <!--set size and column info in the . cs-->
+                </UniformGrid>
+            </ScrollViewer>
+
 
         </Grid>
     </Grid>

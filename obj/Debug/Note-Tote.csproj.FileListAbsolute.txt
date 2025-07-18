@@ -51,3 +51,4 @@ C:\Users\chris\source\repos\Note-Tote\obj\Debug\Note-Tote.csproj.CoreCompileInpu
 C:\Users\chris\source\repos\Note-Tote\obj\Debug\Note-Tote.csproj.Up2Date
 C:\Users\chris\source\repos\Note-Tote\obj\Debug\Note-Tote.exe
 C:\Users\chris\source\repos\Note-Tote\obj\Debug\Note-Tote.pdb
+C:\Users\chris\source\repos\Note-Tote\obj\Debug\Note-Tote.exe.config

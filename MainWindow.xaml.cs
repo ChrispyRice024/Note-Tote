@@ -29,16 +29,35 @@ namespace Note_Tote
         private NewNote NewNoteWindow { get; set; }
 
         private SQLServer server;
+
+        //private NoteGrid myNoteGrid = NoteGrid;
         public MainWindow()
         {
             InitializeComponent();
+            MyNoteGrid.InitializeGrid();
+            this.SizeChanged += (s, e) =>
+            {
+                MyNoteGrid.WindowWidth = this.Width;
+                MyNoteGrid.InitializeGrid();
+            };
+            this.Loaded += (s, e) =>
+            {
+                MyNoteGrid.WindowWidth = this.Width;
+            };
             server = new SQLServer();
         }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         public void OpenNewNoteWindow()
         {
             DateTime now = DateTime.Now;
-            NewNoteWindow = new NewNote(now, NotesGrid.InitializeGrid);
+            NewNoteWindow = new NewNote(now, MyNoteGrid.InitializeGrid);
             NewNoteWindow.ShowDialog();
         }
+
     }
 }
