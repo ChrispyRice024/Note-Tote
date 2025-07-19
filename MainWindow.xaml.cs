@@ -26,7 +26,7 @@ namespace Note_Tote
     {
         
         public List<Note> NotesList { get; set; }
-        private NewNote NewNoteWindow { get; set; }
+        private NoteForm NoteFormWindow { get; set; }
 
         private SQLServer server;
 
@@ -52,11 +52,11 @@ namespace Note_Tote
             throw new NotImplementedException();
         }
 
-        public void OpenNewNoteWindow()
+        public void OpenNoteFormWindow()
         {
             DateTime now = DateTime.Now;
-            NewNoteWindow = new NewNote(now, MyNoteGrid.InitializeGrid);
-            NewNoteWindow.ShowDialog();
+            NoteFormWindow = new NoteForm(now, MyNoteGrid.InitializeGrid);
+            NoteFormWindow.ShowDialog();
         }
 
     }

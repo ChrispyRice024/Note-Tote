@@ -235,31 +235,25 @@ namespace Note_Tote.DB
 
         public static void UpdateRow(string rowId, Note newNote)
         {
-            try
+            using (var connection = new SQLiteConnection(connectionString))
             {
-                using (var connection = new SQLiteConnection(connectionString))
+                connection.Open();
+                using(var cmd = connection.CreateCommand())
                 {
-                    connection.Open();
-                    using(var cmd = connection.CreateCommand())
+                    cmd.CommandText = $@"UPDATE notes 
+                        SET NoteName={newNote.NoteName} 
+                        StartDate={newNote.StartDate}
+                        DueDate={newNote.DueDate}
+                        NoteDesc={newNote.NoteDesc}";
+                    try
                     {
-                        cmd.CommandText = $@"UPDATE notes 
-                            SET NoteName={newNote.NoteName} 
-                            StartDate={newNote.StartDate}
-                            DueDate={newNote.DueDate}
-                            NoteDesc={newNote.NoteDesc}";
-                        try
-                        {
-                            cmd.ExecuteNonQuery();
-                            Debug.WriteLine("Successfully Updated");
-                        }catch(Exception e)
-                        {
-                            Debug.WriteLine(e.Message.ToString());
-                        }
+                        cmd.ExecuteNonQuery();
+                        Debug.WriteLine("Successfully Updated");
+                    }catch(Exception e)
+                    {
+                        Debug.WriteLine(e.Message.ToString());
                     }
                 }
-            }catch(Exception e)
-            {
-                Debug.WriteLine(e.Message.ToString());
             }
         }
 

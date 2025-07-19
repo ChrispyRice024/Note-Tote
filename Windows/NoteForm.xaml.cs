@@ -17,23 +17,51 @@ using System.Windows.Shapes;
 namespace Note_Tote.Windows
 {
     /// <summary>
-    /// Interaction logic for NewNote.xaml
+    /// Interaction logic for NoteForm.xaml
     /// </summary>
-    public partial class NewNote : Window
+    public partial class NoteForm : Window
     {
         private Action UIReload;
 
         private Note TempNote = new Note();
+        private bool IsUpdate = false;
 
-        public NewNote()
+        public NoteForm()
         {
             InitializeComponent();
         }
-        public NewNote(DateTime dateTime, Action callback)
+        public NoteForm(DateTime dateTime, Action callback)
         {
             InitializeComponent();
             UIReload = callback;
             StartDatePicker.SelectedDate = dateTime;
+
+            this.Closed += (s, e) =>
+            {
+                UIReload();
+            };
+        }
+
+        public NoteForm(string id, string noteName, string noteDesc, DateTime? startDate, DateTime? dueDate, Action callback, bool isUpdate)
+        {
+            InitializeComponent();
+            TempNote.Id = id;
+
+            TempNote.NoteName = noteName;
+            NoteName.Text = noteName;
+
+            TempNote.NoteDesc = noteDesc;
+            NoteDesc.Text = noteDesc;
+
+            TempNote.StartDate = startDate;
+            StartDatePicker.SelectedDate = startDate;
+
+            TempNote.DueDate = dueDate;
+            DueDatePicker.SelectedDate = dueDate;
+
+            UIReload = callback;
+
+            IsUpdate = isUpdate;
 
             this.Closed += (s, e) =>
             {
@@ -55,7 +83,7 @@ namespace Note_Tote.Windows
         {
             double left = this.Left;
             double top = this.Top;
-            var newModal = new NewNote();
+            var newModal = new NoteForm();
             newModal.Left = left;
             newModal.Top = top;
             newModal.Show();

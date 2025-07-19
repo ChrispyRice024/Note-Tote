@@ -32,7 +32,7 @@ namespace Note_Tote.Controls
         {
 
             //TODO: open new note window
-            _mainWindow.OpenNewNoteWindow();
+            _mainWindow.OpenNoteFormWindow();
             //TODO: maybe have a validation(check that the
             //newest note is the same as the note that was just made)
 

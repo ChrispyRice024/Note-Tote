@@ -1,8 +1,11 @@
-﻿using Note_Tote.DB;
+﻿using Note_Tote.Classes;
+using Note_Tote.DB;
+using Note_Tote.Windows;
 using Swan;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,6 +27,7 @@ namespace Note_Tote.Controls
     {
         public Action ReloadCallBack {  get; set; }
 
+        public Note CurrentNote { get; private set; }
         public string NoteName { get; private set; }
         public string NoteDesc { get; private set; }
         public int CellId { get; private set; }
@@ -31,33 +35,52 @@ namespace Note_Tote.Controls
         public DateTime? DueDate { get; private set; }
         public string NoteId { get; private set; }
 
-        public NoteCell(string name, string desc, string id, int cellId, string startDate, string dueDate, Action callback)
+        private NoteForm UpdateForm;
+
+        public NoteCell(Note note, Action callback)
         {
             InitializeComponent();
-            ReloadCallBack = callback;
+            CurrentNote = new Note();
 
-            CellId = cellId;
-            NoteId = id;
-            NoteName = name;
-            NoteDesc = desc;
+            CurrentNote.Id = note.Id;
 
-            DateTime due;
-            if (DateTime.TryParse(dueDate, out due))
-                DueDate = due;
-            else
-                StartDate = null;
+            CurrentNote.NoteDesc = note.NoteDesc;
+            CurrentNote.NoteName = note.NoteName;
+            CurrentNote.StartDate = note.StartDate;
+            CurrentNote.DueDate = note.DueDate;
 
-            DateTime start;
-            if (DateTime.TryParse(startDate, out start))
-                StartDate = start;
-            else
-                StartDate = null;
-
-            NoteNameTxt.Text = NoteName;
-            NoteDescTxt.Text = NoteDesc;
-            StartDateTxt.Text = StartDate?.ToString("d") ?? "-";
-            DueDateTxt.Text = DueDate?.ToString("d") ?? "-";
+            NoteNameTxt.Text = CurrentNote.NoteName;
+            NoteDescTxt.Text = CurrentNote.NoteDesc;
+            StartDateTxt.Text = CurrentNote.StartDate?.ToString("d") ?? "-";
+            DueDateTxt.Text = CurrentNote.DueDate?.ToString("d") ?? "-";
         }
+        //public NoteCell(string name, string desc, string id, int cellId, string startDate, string dueDate, Action callback)
+        //{
+        //    InitializeComponent();
+        //    ReloadCallBack = callback;
+
+        //    CellId = cellId;
+        //    NoteId = id;
+        //    NoteName = name;
+        //    NoteDesc = desc;
+
+        //    DateTime due;
+        //    if (DateTime.TryParse(dueDate, out due))
+        //        DueDate = due;
+        //    else
+        //        StartDate = null;
+
+        //    DateTime start;
+        //    if (DateTime.TryParse(startDate, out start))
+        //        StartDate = start;
+        //    else
+        //        StartDate = null;
+
+        //    NoteNameTxt.Text = NoteName;
+        //    NoteDescTxt.Text = NoteDesc;
+        //    StartDateTxt.Text = StartDate?.ToString("d") ?? "-";
+        //    DueDateTxt.Text = DueDate?.ToString("d") ?? "-";
+        //}
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -69,7 +92,7 @@ namespace Note_Tote.Controls
 
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            UpdateForm = new NoteForm();
         }
     }
 }

@@ -33,9 +33,6 @@ namespace Note_Tote.Controls
             InitializeComponent();
             
             ListOfNotes = PopulateList();
-            System.Timers.Timer timer = new System.Timers.Timer(1000);
-            timer.Elapsed += new System.Timers.ElapsedEventHandler(DataTimer);
-            timer.Enabled = true;
 
             this.Loaded += (s, e) =>
             {
@@ -43,13 +40,6 @@ namespace Note_Tote.Controls
                 InitializeGrid();
                 Debug.WriteLine("Second WindowWidth: " + WindowWidth);
             };
-        }
-        private void DataTimer(object s, ElapsedEventArgs a)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                Debug.WriteLine("This.Width = " + this.Width);
-            });
         }
         private List<Note> PopulateList()
         {
@@ -82,14 +72,14 @@ namespace Note_Tote.Controls
             {
                 cellNum++;
 
-                var cell = new NoteCell(
-                    callback: InitializeGrid,
-                    name: note.NoteName,
-                    desc: note.NoteDesc,
-                    id: note.Id,
-                    cellId: cellNum,
-                    startDate: note.StartDate.ToString(),
-                    dueDate: note.DueDate.ToString());
+                var cell = new NoteCell(note, InitializeGrid);
+                    //callback: InitializeGrid,
+                    //name: note.NoteName,
+                    //desc: note.NoteDesc,
+                    //id: note.Id,
+                    //cellId: cellNum,
+                    //startDate: note.StartDate.ToString(),
+                    //dueDate: note.DueDate.ToString());
 
                 NotesUGrid.Children.Add(cell);
             }
