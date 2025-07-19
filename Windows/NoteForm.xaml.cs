@@ -42,22 +42,22 @@ namespace Note_Tote.Windows
             };
         }
 
-        public NoteForm(string id, string noteName, string noteDesc, DateTime? startDate, DateTime? dueDate, Action callback, bool isUpdate)
+        public NoteForm(Note note, Action callback, bool isUpdate)
         {
             InitializeComponent();
-            TempNote.Id = id;
+            TempNote.Id = note.Id;
 
-            TempNote.NoteName = noteName;
-            NoteName.Text = noteName;
+            TempNote.NoteName = note.NoteName;
+            NoteName.Text = note.NoteName;
 
-            TempNote.NoteDesc = noteDesc;
-            NoteDesc.Text = noteDesc;
+            TempNote.NoteDesc = note.NoteDesc;
+            NoteDesc.Text = note.NoteDesc;
 
-            TempNote.StartDate = startDate;
-            StartDatePicker.SelectedDate = startDate;
+            TempNote.StartDate = note.StartDate;
+            StartDatePicker.SelectedDate = note.StartDate;
 
-            TempNote.DueDate = dueDate;
-            DueDatePicker.SelectedDate = dueDate;
+            TempNote.DueDate = note.DueDate;
+            DueDatePicker.SelectedDate = note.DueDate;
 
             UIReload = callback;
 
@@ -71,12 +71,28 @@ namespace Note_Tote.Windows
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            if (NoteName.Text == "")
-                return;
-            if (NoteDesc.Text == "")
-                return;
-            DB.SQLServer.CreateRow(TempNote);
-            ReloadModal();
+            //TODO: add error feedback to each nested if()
+
+            if (IsUpdate)
+            {
+                Debug.WriteLine("Beginning of IsUpdate");
+                if (NoteName.Text == "")
+                    return;
+                if (NoteDesc.Text == "")
+                    return;
+                DB.SQLServer.UpdateRow(TempNote);
+                Debug.WriteLine("Ending of IsUpdate");
+                this.Close();
+            }
+            else
+            {
+                if (NoteName.Text == "")
+                    return;
+                if (NoteDesc.Text == "")
+                    return;
+                DB.SQLServer.CreateRow(TempNote);
+                ReloadModal();
+            }
         }
 
         private void ReloadModal()

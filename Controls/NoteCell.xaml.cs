@@ -40,6 +40,8 @@ namespace Note_Tote.Controls
         public NoteCell(Note note, Action callback)
         {
             InitializeComponent();
+
+            ReloadCallBack = callback;
             CurrentNote = new Note();
 
             CurrentNote.Id = note.Id;
@@ -92,7 +94,9 @@ namespace Note_Tote.Controls
 
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
-            UpdateForm = new NoteForm();
+            bool isUpdate = true;
+            UpdateForm = new NoteForm(CurrentNote, ReloadCallBack, isUpdate);
+            UpdateForm.ShowDialog();
         }
     }
 }

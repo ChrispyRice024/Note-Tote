@@ -233,7 +233,7 @@ namespace Note_Tote.DB
             return noteList ?? throw new ArgumentException();
         }
 
-        public static void UpdateRow(string rowId, Note newNote)
+        public static void UpdateRow(Note newNote)
         {
             using (var connection = new SQLiteConnection(connectionString))
             {
@@ -241,10 +241,16 @@ namespace Note_Tote.DB
                 using(var cmd = connection.CreateCommand())
                 {
                     cmd.CommandText = $@"UPDATE notes 
-                        SET NoteName={newNote.NoteName} 
-                        StartDate={newNote.StartDate}
-                        DueDate={newNote.DueDate}
-                        NoteDesc={newNote.NoteDesc}";
+                        SET NoteName= @NoteName, 
+                        StartDate= @StartDate,
+                        DueDate= @DueDate,
+                        NoteDesc= @NoteDesc
+                        WHERE Id = @Id";
+                    cmd.Parameters.AddWithValue("@NoteName", newNote.NoteName);
+                    cmd.Parameters.AddWithValue("@StartDate", newNote.StartDate);
+                    cmd.Parameters.AddWithValue("@DueDate", newNote.DueDate);
+                    cmd.Parameters.AddWithValue("@NoteDesc", newNote.NoteDesc);
+                    cmd.Parameters.AddWithValue("@Id", newNote.Id);
                     try
                     {
                         cmd.ExecuteNonQuery();
