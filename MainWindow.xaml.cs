@@ -24,7 +24,7 @@ namespace Note_Tote
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+     //TODO: Make the NoteDetails page a userControl instead of a window   
         public List<Note> NotesList { get; set; }
         private NoteForm NoteFormWindow { get; set; }
 

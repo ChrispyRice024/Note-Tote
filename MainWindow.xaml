@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Note_Tote"
         xmlns:controls="clr-namespace:Note_Tote.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="400">
+        Title="MainWindow" Height="550" Width="650">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -14,6 +14,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <controls:MenuBar Grid.Row="0"/>
+            <ContentControl x:Name="MainContent" Grid.Row="1"/>
             <controls:NoteGrid x:Name="MyNoteGrid" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Window}}" Height="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Window}}" Grid.Row="1"/>
         </Grid>
     </Grid>

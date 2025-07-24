@@ -59,14 +59,27 @@ namespace Note_Tote.Windows
             TempNote.DueDate = note.DueDate;
             DueDatePicker.SelectedDate = note.DueDate;
 
-            UIReload = callback;
+            if(callback != null)
+            {
+                UIReload = callback;
+            }
+            else
+            {
+                UIReload = NullFun;
+            }
 
-            IsUpdate = isUpdate;
+
+                IsUpdate = isUpdate;
 
             this.Closed += (s, e) =>
             {
                 UIReload();
             };
+        }
+
+        private void NullFun()
+        {
+            return;
         }
 
         private void Submit_Click(object sender, RoutedEventArgs e)

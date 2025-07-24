@@ -4,6 +4,7 @@ using Note_Tote.Windows;
 using Swan;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
@@ -26,15 +27,9 @@ namespace Note_Tote.Controls
     public partial class NoteCell : UserControl
     {
         public Action ReloadCallBack {  get; set; }
-
         public Note CurrentNote { get; private set; }
-        public string NoteName { get; private set; }
-        public string NoteDesc { get; private set; }
-        public int CellId { get; private set; }
-        public DateTime? StartDate { get; private set; }
-        public DateTime? DueDate { get; private set; }
-        public string NoteId { get; private set; }
 
+        private NoteDetails DetailsWindow;
         private NoteForm UpdateForm;
 
         public NoteCell(Note note, Action callback)
@@ -46,57 +41,66 @@ namespace Note_Tote.Controls
 
             CurrentNote.Id = note.Id;
 
+            //Setting Note Data
             CurrentNote.NoteDesc = note.NoteDesc;
             CurrentNote.NoteName = note.NoteName;
             CurrentNote.StartDate = note.StartDate;
             CurrentNote.DueDate = note.DueDate;
 
+            //Setting Text Elements
             NoteNameTxt.Text = CurrentNote.NoteName;
             NoteDescTxt.Text = CurrentNote.NoteDesc;
-            StartDateTxt.Text = CurrentNote.StartDate?.ToString("d") ?? "-";
-            DueDateTxt.Text = CurrentNote.DueDate?.ToString("d") ?? "-";
+
+            if (CurrentNote.StartDate == DateTime.MinValue)
+            {
+                StartDateTxt.Text = "----";
+            }
+            else
+            {
+                StartDateTxt.Text = CurrentNote.StartDate?.ToString("d") ?? "-";
+            }
+            if (CurrentNote.DueDate == DateTime.MinValue)
+            {
+                DueDateTxt.Text = "----";
+            }
+            else
+            {
+                DueDateTxt.Text = CurrentNote.DueDate?.ToString("d") ?? "-";
+            }
+
+            
+            
         }
-        //public NoteCell(string name, string desc, string id, int cellId, string startDate, string dueDate, Action callback)
-        //{
-        //    InitializeComponent();
-        //    ReloadCallBack = callback;
-
-        //    CellId = cellId;
-        //    NoteId = id;
-        //    NoteName = name;
-        //    NoteDesc = desc;
-
-        //    DateTime due;
-        //    if (DateTime.TryParse(dueDate, out due))
-        //        DueDate = due;
-        //    else
-        //        StartDate = null;
-
-        //    DateTime start;
-        //    if (DateTime.TryParse(startDate, out start))
-        //        StartDate = start;
-        //    else
-        //        StartDate = null;
-
-        //    NoteNameTxt.Text = NoteName;
-        //    NoteDescTxt.Text = NoteDesc;
-        //    StartDateTxt.Text = StartDate?.ToString("d") ?? "-";
-        //    DueDateTxt.Text = DueDate?.ToString("d") ?? "-";
-        //}
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            SQLServer.DeleteRow(NoteId);
+            e.Handled = true;
+            SQLServer.DeleteRow(CurrentNote.Id);
 
             if(ReloadCallBack != null)
+            {
+                Debug.WriteLine("before reload callback");
                 ReloadCallBack();
+            }
+            else
+            {
+                Debug.WriteLine("there is no reload callback");
+            }
         }
 
         private void UpdateBtn_Click(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
             bool isUpdate = true;
             UpdateForm = new NoteForm(CurrentNote, ReloadCallBack, isUpdate);
             UpdateForm.ShowDialog();
+        }
+
+        private void NoteCell_Click(object sender, RoutedEventArgs e)
+        {
+            DetailsWindow = new NoteDetails(CurrentNote, ReloadCallBack);
+
+            DetailsWindow.Show();
         }
     }
 }

@@ -31,10 +31,8 @@ namespace Note_Tote.Controls
         private void NewNote_Click(object sender, RoutedEventArgs e)
         {
 
-            //TODO: open new note window
+
             _mainWindow.OpenNoteFormWindow();
-            //TODO: maybe have a validation(check that the
-            //newest note is the same as the note that was just made)
 
             //TODO: after window is closed, reset the main window
         }
