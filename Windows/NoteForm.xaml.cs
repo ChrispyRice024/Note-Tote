@@ -112,7 +112,7 @@ namespace Note_Tote.Windows
         {
             double left = this.Left;
             double top = this.Top;
-            var newModal = new NoteForm();
+            var newModal = new NoteForm(DateTime.Now, UIReload);
             newModal.Left = left;
             newModal.Top = top;
             newModal.Show();

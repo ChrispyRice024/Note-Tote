@@ -79,7 +79,7 @@ namespace Note_Tote.Windows
         {
             e.Handled = true;
             bool isUpdate = true;
-            UpdateNoteForm = new NoteForm(SelectedNote, null, isUpdate);
+            UpdateNoteForm = new NoteForm(SelectedNote, UIReload, isUpdate);
 
             this.Close();
             UpdateNoteForm.ShowDialog();
